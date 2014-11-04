@@ -53,6 +53,16 @@ function profileFields(req, res){
     res.send(data);
   });
 }
+function profileJoinBlock(req, res){
+  model.profileJoinBlock(function(err, data){
+    res.send(data);
+  });
+}
+function profileEditOwnBlock(req, res){
+  model.profileEditOwnBlock(function(err, data){
+    res.send(data);
+  });
+}
 
 module.exports = function (app) {
   model = require('../models/profiles')(app.connectionPool);
@@ -61,7 +71,9 @@ module.exports = function (app) {
       profileById: profileById,
       profilesPerPage: profilesPerPage,
       profileFriends: profileFriends,
-      profileFields: profileFields
+      profileFields: profileFields,
+      profileJoinBlock: profileJoinBlock,
+      profileEditOwnBlock: profileEditOwnBlock
     },
     post: {
       profileRegister: profileRegister,

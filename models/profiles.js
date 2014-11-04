@@ -192,6 +192,35 @@ function profileFields(cb){
     cb(null, e);
   }
 }
+function profileJoinBlock(cb){
+  try{
+    connectionPool.getConnection(function(err, connection){
+      connection.query('SELECT *FROM `sys_profile_fields`WHERE joinblock >0 ORDER BY joinorder', function(err, rows, fields){
+        process.nextTick(function(){
+          cb(null, rows);
+        });
+        connection.release();
+      });
+    });
+  } catch(e){
+    cb(null, e);
+  }
+}
+
+function profileEditOwnBlock(cb){
+  try{
+    connectionPool.getConnection(function(err, connection){
+      connection.query("SELECT * FROM `sys_profile_fields` WHERE editownorder >0 ORDER BY editownorder", function(err, rows, fields){
+        process.nextTick(function(){
+          cb(null, rows);
+        });
+        connection.release();
+      });
+    });
+  }catch(e){
+    cb(null, e);
+  }
+}
 
 module.exports = function (_connectionPool) {
     connectionPool = _connectionPool;
@@ -202,6 +231,8 @@ module.exports = function (_connectionPool) {
         getFriends: getFriends,
         profileFields: profileFields,
         profileRegister: profileRegister,
-        profileAuth: profileAuth
+        profileAuth: profileAuth,
+        profileJoinBlock: profileJoinBlock,
+        profileEditOwnBlock: profileEditOwnBlock
     };
 };
