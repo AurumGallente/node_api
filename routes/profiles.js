@@ -40,7 +40,6 @@ function profileRegister(req, res){
     });
 }
 function profileAuth(req, res){
-    //console.log(req.body);
     model.profileAuth(req.body.NickName, req.body.Password, req.session, function(err, data){        
        res.send({auth: 'ok'}); 
        req.session.auth = true;
